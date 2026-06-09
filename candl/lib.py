@@ -102,18 +102,6 @@ try:
 except:
     pass
 
-# Optional CAMB import
-try:
-    import camb
-except:
-    pass
-
-# Optional CLASS import
-try:
-    import classy
-except:
-    pass
-
 # Optional Cobaya import
 try:
     from cobaya.theory import Theory as cobaya_theory_Theory
