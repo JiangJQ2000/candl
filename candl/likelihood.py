@@ -2477,10 +2477,10 @@ class GaussianPrior:
         if central_value is None:
             central_value = jnp.zeros(len(self.par_names))
         self.central_value = jnp.atleast_1d(
-            central_value
+            jnp.asarray(central_value)
         )  # Make sure central value is a vector
         self.prior_covariance = jnp.atleast_2d(
-            prior_covariance
+            jnp.asarray(prior_covariance)
         )  # Make sure covariance is a matrix
         self.prior_covariance_chol = jnp.linalg.cholesky(self.prior_covariance)
         self.multiplicative_par = multiplicative_par
@@ -2504,11 +2504,15 @@ class GaussianPrior:
         # For others, take difference to central value
         if self.multiplicative_par:
             delta_pars = jnp.log(
-                jnp.atleast_1d([sampled_pars[par_name] for par_name in self.par_names])
+                jnp.atleast_1d(
+                    jnp.asarray([sampled_pars[par_name] for par_name in self.par_names])
+                )
             )
         else:
             delta_pars = (
-                jnp.atleast_1d([sampled_pars[par_name] for par_name in self.par_names])
+                jnp.atleast_1d(
+                    jnp.asarray([sampled_pars[par_name] for par_name in self.par_names])
+                )
                 - self.central_value
             )
 
